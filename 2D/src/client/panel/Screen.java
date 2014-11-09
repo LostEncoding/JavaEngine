@@ -7,7 +7,7 @@ import source.Particle;
 import source.objects.GameObject;
 import client.Client;
 
-public class Screen extends JPanel {
+public abstract class Screen extends JPanel {
 
 	public Screen(){
 		super();
@@ -15,12 +15,6 @@ public class Screen extends JPanel {
 		setVisible(true);
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		Particle p = new Particle("Test", 5, 5, Color.GREEN);
-		p.paint(g);
-		GameObject go = new GameObject("NEW", 30, 30, 50, 30, Color.blue);
-		go.paint(g);
-	}
+	public abstract void paint(Graphics g);
 
 }
