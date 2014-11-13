@@ -1,7 +1,9 @@
 package source;
 
+import source.interfaces.IUpdatable;
 import source.interfaces.IVisible;
 import source.objects.EmptyGameObject;
+
 import java.awt.*;
 
 public class Particle extends EmptyGameObject implements IVisible{
@@ -20,5 +22,5 @@ public class Particle extends EmptyGameObject implements IVisible{
 		g.setColor(color);
 		g.drawRect((int)x+(int)disX, (int)y+(int)disY, 1, 1);
 	}
-	
+
 }
