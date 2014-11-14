@@ -22,6 +22,7 @@ public class Client extends JFrame implements Runnable{
 	@Override
 	public void run() {
 		while(running){
+			currScreen.update(.016f);
 			currScreen.repaint();
 			try {
 				Thread.sleep(16);
