@@ -9,5 +9,9 @@ public class PlayerController extends GameObject{
 	public PlayerController(String name, float x, float y, int w, int h, Color c) {
 		super(name, x, y, w, h, c);
 	}
+	
+	public void move(){
+		
+	}
 
 }

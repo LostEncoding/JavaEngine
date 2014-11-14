@@ -1,5 +1,4 @@
 import client.Client;
-import client.panel.Screen;
 import client.panel.premade.MenuScreen;
 
 
