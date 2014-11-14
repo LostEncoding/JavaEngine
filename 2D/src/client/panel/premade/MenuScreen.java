@@ -2,9 +2,9 @@ package client.panel.premade;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import source.Point;
 import source.objects.GameObject;
 import source.objects.gui.Button;
@@ -13,31 +13,26 @@ import source.objects.gui.UIObject;
 import source.objects.physics.GravityGameObject;
 import source.objects.physics.physical.PhysicalGameObject;
 import source.objects.physics.physical.PhysicalGravityGameObject;
-import source.objects.player.PlayerController;
-import sun.misc.Cleaner;
+import source.objects.physics.physical.player.PlayerController;
 import client.Client;
 import client.panel.ClickScreen;
 
 public class MenuScreen extends ClickScreen {
 
-	public MenuScreen(Color bg) {
-		super(bg);
+	public MenuScreen(Color bg, Client c) {
+		super(bg, c);
 		setBackground(Color.gray);
-		loadUIObjects();
-		loadObjects();
 	}
-	
+
 	@Override
 	public void loadObjects() {
-		addObject( new PhysicalGameObject("ground", 0, 500, 600, 10, Color.GREEN));
-		addObject( new PhysicalGravityGameObject("test", 100, 0, 50, 30, Color.BLUE));
 	}
 
 	@Override
 	public void loadUIObjects() {
-		addUIObject(new Button("New Game", 50, 50, 100, 50, Color.darkGray));
+		addUIObject(new Button("New Game", 0, 50, 50, 100, 50, Color.darkGray));
 		addUIObject(new Text("Hello", Client.WIDTH / 2, 50, 40, Color.GREEN,
-						Color.black));
+				Color.black));
 	}
 
 	@Override
@@ -47,54 +42,43 @@ public class MenuScreen extends ClickScreen {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		playerClick = new Rectangle(e.getX() - 5, e.getY() - 5, 10, 10);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		for (UIObject uio : ui) {
+			if (uio instanceof Button)
+				if (playerClick.intersects(uio.getBounds())) {
+					switch (((Button) uio).getScreenId()) {
+					case 0:
+						client.changeScreen(new GameTestScreen(Color.DARK_GRAY,
+								client));
+						break;
+					default:
+						printError(this.getClass(), "Screen-Button id mismatch");
+						break;
+					}
+				}
+		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		for (UIObject b : ui) {
-			b.paint(g);
-		}
-		for(GameObject p : objects){
-				p.update(.016f);
-		}
-		for(GameObject go : objects){
-			for(int j = 1; j < objects.size(); j++){
-				if(go instanceof PhysicalGravityGameObject){
-					if(((PhysicalGravityGameObject)go).intersects(objects.get(j))){
-						((PhysicalGravityGameObject)go).setGrounded(true);
-					}else{
-						((PhysicalGravityGameObject)go).setGrounded(false);
-					}
-					
-//					((PhysicalGravityGameObject)go).setGrounded(((PhysicalGravityGameObject)go).intersects(objects.get(j)) ? true : false);
-				}
-			}
-		}
-		for(GameObject p : objects){
-			p.paint(g);
-		}
 	}
 
 	@Override
-	public void update(float deltaTime) {
-		
+	public void update() {
 	}
 
 }

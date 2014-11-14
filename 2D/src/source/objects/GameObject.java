@@ -1,12 +1,9 @@
 package source.objects;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import source.Particle;
 import source.interfaces.IUpdatable;
-import source.objects.physics.physical.PhysicalGameObject;
+
+import java.awt.*;
 
 public class GameObject extends Particle implements IUpdatable {
 	protected int width, height;
@@ -24,15 +21,15 @@ public class GameObject extends Particle implements IUpdatable {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, width + 2, height + 2);
+		return new Rectangle((int) x, (int) y, width + 1, height + 1);
 	}
 
 	public boolean intersects(GameObject go) {
-		return this != go ? go.getBounds().intersects(getBounds()) : false;
+		return this != go && go.getBounds().intersects(getBounds());
 	}
 
 	@Override
-	public void update(float deltaTime) {
+	public void update() {
 	}
 
 	@Override

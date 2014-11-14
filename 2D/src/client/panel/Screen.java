@@ -9,42 +9,101 @@ import javax.swing.JPanel;
 import source.Point;
 import source.objects.GameObject;
 import source.objects.gui.UIObject;
+import source.objects.physics.physical.player.PlayerController;
 import client.Client;
 
 public abstract class Screen extends JPanel {
 	private Color backgroundColor;
-	protected ArrayList<GameObject> objects;
+	protected float disX, disY;
+	protected PlayerController player;
+	protected ArrayList<GameObject> staticObjects, dynamicObjects;
 	protected ArrayList<UIObject> ui;
-	
-	public Screen(Color bg) {
+	protected Client client;
+
+	public Screen(Color bg, Client c) {
 		super();
-		objects = new ArrayList<GameObject>();
+		client = c;
+		disX = 0;
+		disY = 0;
+		dynamicObjects = new ArrayList<GameObject>();
+		staticObjects = new ArrayList<GameObject>();
 		ui = new ArrayList<UIObject>();
 		backgroundColor = bg;
 		setSize(Client.WIDTH, Client.HEIGHT);
 		setVisible(true);
+		loadUIObjects();
+		loadObjects();
 	}
-	
+
 	public abstract void loadObjects();
+
 	public abstract void loadUIObjects();
-	
-	public Color getBackgroundColor(){
+
+	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
-	
-	public void addObject(GameObject p){
-		objects.add(p);
+
+	public void addPlayer(String name, float x, float y, Color c) {
+		player = new PlayerController(name, x, y, 100, 100, c);
 	}
-	
-	public void addUIObject(UIObject uio){
+
+	public void addStaticObject(GameObject p) {
+		staticObjects.add(p);
+	}
+
+	public void addDynamicObject(GameObject p) {
+		dynamicObjects.add(p);
+	}
+
+	public void addUIObject(UIObject uio) {
 		ui.add(uio);
 	}
 
-	public void paint(Graphics g) {
-		g.setColor(backgroundColor);
-		g.fillRect(0, 0, getWidth(), getHeight());
+	public void checkCollisions() {
+		for (GameObject sgo : staticObjects) {
+			for (GameObject dgo : dynamicObjects) {
+				dgo.intersects(sgo);
+			}
+		}
+		for (GameObject sgo : staticObjects) {
+			player.intersects(sgo);
+		}
+//		for (GameObject dgo : dynamicObjects) {
+//			player.intersects(dgo);
+//		}
 	}
 
-	public abstract void update(float deltaTime);
+	public void paint(Graphics g) {
+		checkCollisions();
+		g.setColor(backgroundColor);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		if (player != null) {
+			player.update();
+			player.paint(g);
+		}
+		for (UIObject b : ui) {
+			b.paint(g);
+		}
+		for (GameObject sgo : staticObjects) {
+			sgo.update();
+		}
+		for (GameObject dgo : dynamicObjects) {
+			dgo.update();
+		}
+		for (GameObject sgo : staticObjects) {
+			sgo.paint(g);
+		}
+		for (GameObject dgo : dynamicObjects) {
+			dgo.paint(g);
+		}
+	}
+
+	public abstract void update();
+
+	public void printError(Class c, String message) {
+		System.err.println("--------------------------------\nError: "
+				+ c.getName() + "\n\t" + message
+				+ "\n--------------------------------");
+	}
 
 }

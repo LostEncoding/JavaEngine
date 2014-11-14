@@ -13,9 +13,13 @@ public class PhysicalGameObject extends GameObject implements IPhysical {
 	}
 
 	@Override
-	public void updatePhysics(float deltaTime) {
-		update(deltaTime);
+	public void updatePhysics() {
+		update();
 	}
 
+	@Override
+	public boolean intersects(GameObject go) {
+		return super.intersects(go);
+	}
 
 }

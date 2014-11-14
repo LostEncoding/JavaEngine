@@ -1,16 +1,12 @@
 package source.objects.gui;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
-import source.objects.GameObject;
+import java.awt.*;
 
 public class Button extends UIObject {
-
-	public Button(String name, float x, float y, int w, int h, Color c) {
+	private int screenId;
+	public Button(String name, int screenId, float x, float y, int w, int h, Color c) {
 		super(name, x, y, w, h, c);
+		this.screenId = screenId;
 	}
 
 	@Override
@@ -23,6 +19,14 @@ public class Button extends UIObject {
 		g.setColor(Color.black);
 		g.drawString(name, (int) x + (int) disX+1+stringWidth/4, (int) y+1  + height
 				/ 2);
+	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle((int)x,(int)y,width,height);
+	}
+	
+	public int getScreenId(){
+		return screenId;
 	}
 	
 }

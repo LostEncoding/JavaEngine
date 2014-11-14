@@ -13,7 +13,7 @@ public class GravityGameObject extends GameObject{
 	}
 	
 	@Override
-	public void update(float deltaTime) {
+	public void update() {
 		y+=GRAVITY;
 	}
 }
