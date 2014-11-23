@@ -1,16 +1,14 @@
 package client.panel;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.MouseListener;
+import client.Frame;
 
-import client.Client;
+import java.awt.*;
+import java.awt.event.MouseListener;
 
 public abstract class ClickScreen extends Screen implements MouseListener{
 	protected Rectangle playerClick;
 	
-	public ClickScreen(Color bg, Client c){
+	public ClickScreen(Color bg, Frame c){
 		super(bg,c);
 		playerClick = new Rectangle();
 		addMouseListener(this);

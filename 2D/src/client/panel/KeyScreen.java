@@ -1,13 +1,12 @@
 package client.panel;
 
-import java.awt.Color;
+import client.Frame;
+import java.awt.*;
 import java.awt.event.KeyListener;
-
-import client.Client;
 
 public abstract class KeyScreen extends Screen implements KeyListener{
 	
-	public KeyScreen(Color bg, Client c) {
+	public KeyScreen(Color bg, Frame c) {
 		super(bg,c);
 		addKeyListener(this);
 	}

@@ -4,22 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import source.Point;
-import source.objects.GameObject;
 import source.objects.gui.Button;
 import source.objects.gui.Text;
 import source.objects.gui.UIObject;
-import source.objects.physics.GravityGameObject;
-import source.objects.physics.physical.PhysicalGameObject;
-import source.objects.physics.physical.PhysicalGravityGameObject;
-import source.objects.physics.physical.player.PlayerController;
-import client.Client;
+import client.Frame;
 import client.panel.ClickScreen;
 
 public class MenuScreen extends ClickScreen {
 
-	public MenuScreen(Color bg, Client c) {
+	public MenuScreen(Color bg, Frame c) {
 		super(bg, c);
 		setBackground(Color.gray);
 	}
@@ -31,7 +24,7 @@ public class MenuScreen extends ClickScreen {
 	@Override
 	public void loadUIObjects() {
 		addUIObject(new Button("New Game", 0, 50, 50, 100, 50, Color.darkGray));
-		addUIObject(new Text("Hello", Client.WIDTH / 2, 50, 40, Color.GREEN,
+		addUIObject(new Text("Hello", Frame.WIDTH / 2, 50, 40, Color.GREEN,
 				Color.black));
 	}
 

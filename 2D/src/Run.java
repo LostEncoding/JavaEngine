@@ -1,8 +1,7 @@
-import client.Client;
-import client.panel.premade.MenuScreen;
+import client.Frame;
 
 public class Run {
 	public static void main(String[] args) {
-		Client c = new Client("TEST");
+        new Frame("TEST");
 	}
 }

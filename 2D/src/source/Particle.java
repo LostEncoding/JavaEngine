@@ -1,6 +1,5 @@
 package source;
 
-import source.interfaces.IUpdatable;
 import source.interfaces.IVisible;
 import source.objects.EmptyGameObject;
 

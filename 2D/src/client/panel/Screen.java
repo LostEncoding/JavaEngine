@@ -1,16 +1,13 @@
 package client.panel;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-
-import source.Point;
+import client.Frame;
 import source.objects.GameObject;
 import source.objects.gui.UIObject;
 import source.objects.physics.physical.player.PlayerController;
-import client.Client;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Screen extends JPanel {
 	private Color backgroundColor;
@@ -18,9 +15,9 @@ public abstract class Screen extends JPanel {
 	protected PlayerController player;
 	protected ArrayList<GameObject> staticObjects, dynamicObjects;
 	protected ArrayList<UIObject> ui;
-	protected Client client;
+	protected Frame client;
 
-	public Screen(Color bg, Client c) {
+	public Screen(Color bg, Frame c) {
 		super();
 		client = c;
 		disX = 0;
@@ -29,7 +26,7 @@ public abstract class Screen extends JPanel {
 		staticObjects = new ArrayList<GameObject>();
 		ui = new ArrayList<UIObject>();
 		backgroundColor = bg;
-		setSize(Client.WIDTH, Client.HEIGHT);
+		setSize(Frame.WIDTH, Frame.HEIGHT);
 		setVisible(true);
 		loadUIObjects();
 		loadObjects();
@@ -44,7 +41,7 @@ public abstract class Screen extends JPanel {
 	}
 
 	public void addPlayer(String name, float x, float y, Color c) {
-		player = new PlayerController(name, x, y, 100, 100, c);
+		player = new PlayerController(name, x, y, 10, 10, c);
 	}
 
 	public void addStaticObject(GameObject p) {
@@ -81,14 +78,15 @@ public abstract class Screen extends JPanel {
 			player.update();
 			player.paint(g);
 		}
-		for (UIObject b : ui) {
-			b.paint(g);
-		}
 		for (GameObject sgo : staticObjects) {
 			sgo.update();
 		}
 		for (GameObject dgo : dynamicObjects) {
 			dgo.update();
+		}
+		checkCollisions();
+		for (UIObject b : ui) {
+			b.paint(g);
 		}
 		for (GameObject sgo : staticObjects) {
 			sgo.paint(g);

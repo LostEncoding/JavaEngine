@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import source.objects.GameObject;
 
 public class Text extends UIObject {
 	private Color colorEnd;

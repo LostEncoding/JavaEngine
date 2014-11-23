@@ -43,9 +43,7 @@ public class GameObject extends Particle implements IUpdatable {
 		GameObject other = (GameObject) obj;
 		if (height != other.height)
 			return false;
-		if (width != other.width)
-			return false;
-		return true;
-	}
+        return width == other.width;
+    }
 
 }
