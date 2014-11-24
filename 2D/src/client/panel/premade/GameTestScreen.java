@@ -22,13 +22,13 @@ public class GameTestScreen extends KeyScreen {
     @Override
     public void loadObjects() {
         addStaticObject(new PhysicalGameObject("ground", 0, 500, 600, 10,
-                Color.GREEN));
+                Color.GREEN,"ground"));
         addDynamicObject(new PhysicalGravityGameObject("test", 200, 0, 50, 30,
-                Color.BLUE));
+                Color.BLUE,"npc"));
         addDynamicObject(new PhysicalGravityGameObject("test", 100, 0, 50, 30,
-                Color.yellow));
+                Color.yellow,"npc"));
         addDynamicObject(new PhysicalGravityGameObject("test", 0, 0, 50, 30,
-                Color.red));
+                Color.red,"npc"));
     }
 
     @Override

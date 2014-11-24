@@ -7,9 +7,11 @@ import java.awt.*;
 
 public class GameObject extends Particle implements IUpdatable {
 	protected int width, height;
+	protected String tag;
 
-	public GameObject(String name, float x, float y, int w, int h, Color c) {
+	public GameObject(String name, float x, float y, int w, int h, Color c, String tag) {
 		super(name, x, y, c);
+		this.tag = tag;
 		width = w;
 		height = h;
 	}
@@ -22,6 +24,10 @@ public class GameObject extends Particle implements IUpdatable {
 
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, width + 1, height + 1);
+	}
+
+	public String getTag(){
+		return tag;
 	}
 
 	public boolean intersects(GameObject go) {

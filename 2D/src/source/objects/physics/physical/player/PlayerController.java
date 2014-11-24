@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 public class PlayerController extends PhysicalGravityGameObject {
 
     public PlayerController(String name, float x, float y, int w, int h, Color c) {
-        super(name, x, y, w, h, c);
+        super(name, x, y, w, h, c,"player");
     }
 
     public void move(KeyEvent ke) {
@@ -27,7 +27,8 @@ public class PlayerController extends PhysicalGravityGameObject {
                 if (isGrounded) {
                     setGrounded(false);
                     System.out.println("jump");
-                    yVelocity -= 70;
+                    yVelocity -= 20;
+                    update();
                 }
                 break;
             default:

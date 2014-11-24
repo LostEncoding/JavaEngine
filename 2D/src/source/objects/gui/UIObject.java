@@ -1,14 +1,12 @@
 package source.objects.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import source.objects.GameObject;
+import java.awt.*;
 
 public class UIObject extends GameObject {
 
 	public UIObject(String name, float x, float y, int w, int h, Color c) {
-		super(name, x, y, w, h, c);
+		super(name, x, y, w, h, c,"UI");
 	}
 
 	public void setText(String s) {

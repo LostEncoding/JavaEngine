@@ -1,20 +1,18 @@
 package source.objects.physics.physical;
 
-import source.interfaces.IPhysical;
 import source.objects.GameObject;
 import source.objects.physics.GravityGameObject;
 
 import java.awt.*;
 
-public class PhysicalGravityGameObject extends GravityGameObject implements
-        IPhysical {
+public class PhysicalGravityGameObject extends GravityGameObject {
 
     protected boolean isGrounded;
     protected float maxXVelocity = 2f;
 
     public PhysicalGravityGameObject(String name, float x, float y, int w,
-                                     int h, Color c) {
-        super(name, x, y, w, h, c);
+                                     int h, Color c,String tag) {
+        super(name, x, y, w, h, c,tag);
         isGrounded = false;
     }
 
@@ -23,7 +21,7 @@ public class PhysicalGravityGameObject extends GravityGameObject implements
     }
 
     @Override
-    public void updatePhysics() {
+    public void update() {
         if(isGrounded)
             yVelocity = 0;
         if(xVelocity > maxXVelocity)
@@ -32,16 +30,11 @@ public class PhysicalGravityGameObject extends GravityGameObject implements
 
     }
 
-    @Override
-    public void update() {
-        updatePhysics();
-    }
-
 
     private boolean hit = false;
     @Override
     public boolean intersects(GameObject go) {
-        isGrounded = super.intersects(go);
+      isGrounded = (super.intersects(go) && go.getTag().equals("ground"));
         if(isGrounded && !hit){
             y = go.getY() - height;
             hit = true;

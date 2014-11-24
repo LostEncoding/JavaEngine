@@ -9,8 +9,8 @@ public class GravityGameObject extends GameObject {
     public float yVelocity, xVelocity;
 
     public GravityGameObject(String name, float x, float y, int w, int h,
-                             Color c) {
-        super(name, x, y, w, h, c);
+                             Color c,String tag) {
+        super(name, x, y, w, h, c,tag);
         yVelocity = 0;
         xVelocity = 0;
     }
