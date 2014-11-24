@@ -34,13 +34,10 @@ public class PhysicalGravityGameObject extends GravityGameObject {
     private boolean hit = false;
     @Override
     public boolean intersects(GameObject go) {
-      isGrounded = (super.intersects(go) && go.getTag().equals("ground"));
-        if(isGrounded && !hit){
+        isGrounded = (super.intersects(go) && go.getTag().equals("ground"));
+        hit = (isGrounded && !hit);
+        if(hit)
             y = go.getY() - height;
-            hit = true;
-        }else{
-            hit = false;
-        }
         return super.intersects(go);
     }
 }
