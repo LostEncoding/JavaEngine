@@ -65,9 +65,9 @@ public abstract class Screen extends JPanel {
 		for (GameObject sgo : staticObjects) {
 			player.intersects(sgo);
 		}
-//		for (GameObject dgo : dynamicObjects) {
-//			player.intersects(dgo);
-//		}
+		for (GameObject dgo : dynamicObjects) {
+			player.intersects(dgo);
+		}
 	}
 
 	public void paint(Graphics g) {
