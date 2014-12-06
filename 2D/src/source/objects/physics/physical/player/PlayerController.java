@@ -47,7 +47,6 @@ public class PlayerController extends PhysicalGravityGameObject {
 
     @Override
     public void update() {
-        System.out.println(yVelocity);
         super.update();
     }
 
@@ -55,7 +54,6 @@ public class PlayerController extends PhysicalGravityGameObject {
     public boolean intersects(GameObject go) {
         if (isGrounded || collideWithDynamticObject)
             jumpCount = 0;
-
         return super.intersects(go);
     }
 }

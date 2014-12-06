@@ -40,6 +40,8 @@ public class GameTestScreen extends KeyScreen {
     public void update() {
         if (key != null)
             player.move(key);
+
+        disX++;
     }
 
     @Override

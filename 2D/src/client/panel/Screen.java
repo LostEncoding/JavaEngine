@@ -76,7 +76,7 @@ public abstract class Screen extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (player != null) {
 			player.update();
-			player.paint(g);
+			player.paint(g,disX,disY);
 		}
 		for (GameObject sgo : staticObjects) {
 			sgo.update();
@@ -86,13 +86,13 @@ public abstract class Screen extends JPanel {
 		}
 		checkCollisions();
 		for (UIObject b : ui) {
-			b.paint(g);
+			b.paint(g,disX,disY);
 		}
 		for (GameObject sgo : staticObjects) {
-			sgo.paint(g);
+			sgo.paint(g,disX,disY);
 		}
 		for (GameObject dgo : dynamicObjects) {
-			dgo.paint(g);
+			dgo.paint(g,disX,disY);
 		}
 	}
 

@@ -2,7 +2,6 @@ package source.objects.physics.physical;
 
 import source.objects.GameObject;
 import source.objects.physics.GravityGameObject;
-
 import java.awt.*;
 
 public class PhysicalGravityGameObject extends GravityGameObject {
@@ -20,7 +19,7 @@ public class PhysicalGravityGameObject extends GravityGameObject {
 
     @Override
     public void update() {
-        if (isGrounded || collideWithDynamticObject)
+        if (collideWithDynamticObject || isGrounded)
             yVelocity = 0;
         if (xVelocity > maxXVelocity)
             xVelocity = maxXVelocity;
@@ -38,10 +37,9 @@ public class PhysicalGravityGameObject extends GravityGameObject {
             if (hit)
                 y = go.getY() - height;
         } else {
-
             collideWithDynamticObject = (super.intersects(go) && go.getTag().equals("npc"));
             if (collideWithDynamticObject)
-                y = go.getY() - (height*2)-1;
+                y = go.getY();
         }
         return super.intersects(go);
     }
