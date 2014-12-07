@@ -2,6 +2,7 @@ package source.objects.physics.physical;
 
 import source.objects.GameObject;
 import source.objects.physics.GravityGameObject;
+
 import java.awt.*;
 
 public class PhysicalGravityGameObject extends GravityGameObject {
@@ -17,13 +18,17 @@ public class PhysicalGravityGameObject extends GravityGameObject {
         collideWithDynamticObject = false;
     }
 
+    public boolean isGrounded() {
+        return isGrounded;
+    }
+
     @Override
     public void update() {
+        super.update();
         if (collideWithDynamticObject || isGrounded)
             yVelocity = 0;
         if (xVelocity > maxXVelocity)
             xVelocity = maxXVelocity;
-        super.update();
     }
 
 
@@ -32,14 +37,23 @@ public class PhysicalGravityGameObject extends GravityGameObject {
     @Override
     public boolean intersects(GameObject go) {
         if (go.getTag().equals("ground")) {
-            isGrounded = (super.intersects(go));
-            hit = (isGrounded && !hit);
-            if (hit)
-                y = go.getY() - height;
+            if (go.getY() >= y) {
+                isGrounded = (super.intersects(go));
+                hit = (isGrounded && !hit);
+                if (hit)
+                    y = go.getY() - height;
+            }else{
+                if(super.intersects(go)){
+                    yVelocity = 0;
+                    y = go.getY() + height+1;
+                }
+            }
         } else {
             collideWithDynamticObject = (super.intersects(go) && go.getTag().equals("npc"));
-            if (collideWithDynamticObject)
-                y = go.getY();
+            if (collideWithDynamticObject) {
+                y = go.getY() - height;
+                isGrounded = true;
+            }
         }
         return super.intersects(go);
     }

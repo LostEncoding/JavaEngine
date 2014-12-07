@@ -64,9 +64,15 @@ public abstract class Screen extends JPanel {
 		}
 		for (GameObject sgo : staticObjects) {
 			player.intersects(sgo);
+			if(player.isGrounded()){
+				break;
+			}
 		}
 		for (GameObject dgo : dynamicObjects) {
 			player.intersects(dgo);
+			if(player.isGrounded()){
+				break;
+			}
 		}
 	}
 

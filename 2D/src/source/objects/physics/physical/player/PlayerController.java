@@ -52,6 +52,9 @@ public class PlayerController extends PhysicalGravityGameObject {
 
     @Override
     public boolean intersects(GameObject go) {
+        System.out.println("----------");
+        System.out.println(go.getTag()+ ": " + go.getY());
+        System.out.println("Player: " + y);
         if (isGrounded || collideWithDynamticObject)
             jumpCount = 0;
         return super.intersects(go);
