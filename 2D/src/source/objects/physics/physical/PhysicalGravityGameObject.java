@@ -29,10 +29,18 @@ public class PhysicalGravityGameObject extends GravityGameObject {
             yVelocity = 0;
         if (xVelocity > maxXVelocity)
             xVelocity = maxXVelocity;
+        if(yAxisCollided)
+            y = yPosWhenCollided;
+        if(xAxisCollided)
+            x = xPosWhenCollided;
+
     }
 
-
-    private boolean hit = false;
+    private int xPosWhenCollided = 0,
+                yPosWhenCollided = 0;
+    protected boolean hit = false,
+                    yAxisCollided = false,
+                    xAxisCollided = false;
 
     @Override
     public boolean intersects(GameObject go) {
@@ -51,8 +59,31 @@ public class PhysicalGravityGameObject extends GravityGameObject {
         } else {
             collideWithDynamticObject = (super.intersects(go) && go.getTag().equals("npc"));
             if (collideWithDynamticObject) {
-                y = go.getY() - height;
-                isGrounded = true;
+                System.out.println("----------------");
+                System.out.println("Self:\n\tY: " + y  + "\n\tX: " + x + "\n\tBottom Y: " + y+height);
+                System.out.println("Other:\n\tY: " + go.getY()  + "\n\tX: " + go.getX() + "\n\tBottom Y: " + (go.getY()+go.getBounds().height-1));
+                if(y <= go.getY()) {
+                    yVelocity = 0;
+                    yAxisCollided = true;
+                    yPosWhenCollided = (int) go.getY() - height;
+                    isGrounded = true;
+                }else if(y > go.getY() && !isGrounded){
+                    yVelocity = 0;
+                    y = go.getY()+go.getBounds().height;
+                }else{
+                    yAxisCollided = false;
+                }
+                if(y+height ==  go.getY()+go.getBounds().getHeight()-1){
+                    if(!xAxisCollided) {
+                        xAxisCollided = true;
+                        xPosWhenCollided = (int) x;
+                    }
+                }else{
+                    xAxisCollided = false;
+                }
+            }else{
+                xAxisCollided = false;
+                yAxisCollided = false;
             }
         }
         return super.intersects(go);
